@@ -77,4 +77,80 @@ public class ValidatorTest {
         assertTrue(schema.isValid("what does the fox say"));
         assertTrue(schema.isValid("hexlet"));
     }
+
+    @Test
+    @DisplayName("validate a number without requirements")
+    void testValidateNumberWithoutRequirement() throws Exception {
+        var validator = new Validator();
+        var schema = validator.number();
+        assertTrue(schema.isValid(null));
+        assertTrue(schema.isValid(0));
+        assertTrue(schema.isValid(10));
+        assertTrue(schema.isValid(-10));
+    }
+
+    @Test
+    @DisplayName("validate a number with required requirement")
+    void testValidateNumberWithRequired() throws Exception {
+        var validator = new Validator();
+        var schema = validator.number();
+        schema.required();
+        assertFalse(schema.isValid(null));
+        assertTrue(schema.isValid(0));
+        assertTrue(schema.isValid(10));
+        assertTrue(schema.isValid(-10));
+    }
+
+    @Test
+    @DisplayName("validate a number with positive requirement")
+    void testValidateNumberWithPositive() throws Exception {
+        var validator = new Validator();
+        var schema = validator.number();
+        schema.positive();
+        assertTrue(schema.isValid(null));
+        assertFalse(schema.isValid(0));
+        assertTrue(schema.isValid(1));
+        assertFalse(schema.isValid(-1));
+    }
+
+    @Test
+    @DisplayName("validate a number with range requirement")
+    void testValidateNumberWithRange() throws Exception {
+        var validator = new Validator();
+        var schema = validator.number();
+        schema.range(5, 10);
+        assertFalse(schema.isValid(null));
+        assertFalse(schema.isValid(0));
+        assertTrue(schema.isValid(5));
+        assertTrue(schema.isValid(7));
+        assertTrue(schema.isValid(10));
+        assertFalse(schema.isValid(11));
+    }
+
+    @Test
+    @DisplayName("validate a number with all requirements")
+    void testValidateNumberWithAllRequirements() throws Exception {
+        var validator = new Validator();
+        var schema = validator.number();
+        assertTrue(schema.isValid(5));
+        assertTrue(schema.isValid(null));
+        assertTrue(schema.positive().isValid(null));
+        schema.required();
+        assertFalse(schema.isValid(null));
+        assertTrue(schema.isValid(10));
+        assertFalse(schema.isValid(-10));
+        assertFalse(schema.isValid(0));
+        schema.range(5, 10);
+        assertTrue(schema.isValid(5));
+        assertTrue(schema.isValid(7));
+        assertTrue(schema.isValid(10));
+        assertFalse(schema.isValid(4));
+        assertFalse(schema.isValid(11));
+        schema.range(20, 30);
+        assertTrue(schema.isValid(20));
+        assertTrue(schema.isValid(25));
+        assertTrue(schema.isValid(30));
+        assertFalse(schema.isValid(19));
+        assertFalse(schema.isValid(31));
+    }
 }
