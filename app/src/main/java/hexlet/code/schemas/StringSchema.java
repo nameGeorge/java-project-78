@@ -1,27 +1,18 @@
 package hexlet.code.schemas;
 
-import hexlet.code.schemas.requirements.forstring.StringContainsRequirement;
-import hexlet.code.schemas.requirements.forstring.StringMinLengthRequirement;
-import hexlet.code.schemas.requirements.forstring.StringRequiredRequirement;
-
 public final class StringSchema extends BaseSchema<String> {
     public StringSchema required() {
-        super.addRequirement("required", new StringRequiredRequirement());
+        addRequirement("required", str -> str != null && !str.isBlank());
         return this;
     }
 
     public StringSchema minLength(int minLength) {
-        super.addRequirement("minLength", new StringMinLengthRequirement(minLength));
+        addRequirement("minLength", str -> str != null && str.length() >= minLength);
         return this;
     }
 
     public StringSchema contains(String substring) {
-        super.addRequirement("contains", new StringContainsRequirement(substring));
+        addRequirement("contains", str -> (str != null && str.contains(substring)) || substring.isBlank());
         return this;
-    }
-
-    @Override
-    public String convertType(Object value) {
-        return (String) value;
     }
 }

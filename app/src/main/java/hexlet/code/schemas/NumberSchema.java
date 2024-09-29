@@ -1,27 +1,19 @@
 package hexlet.code.schemas;
 
-import hexlet.code.schemas.requirements.fornumber.NumberPositiveRequirement;
-import hexlet.code.schemas.requirements.fornumber.NumberRangeRequirement;
-import hexlet.code.schemas.requirements.fornumber.NumberRequiredRequirement;
 
 public final class NumberSchema extends BaseSchema<Integer> {
     public NumberSchema required() {
-        super.addRequirement("required", new NumberRequiredRequirement());
+        addRequirement("required", num -> num != null);
         return this;
     }
 
     public NumberSchema positive() {
-        super.addRequirement("positive", new NumberPositiveRequirement());
+        addRequirement("positive", num -> num == null || num > 0);
         return this;
     }
 
     public NumberSchema range(int minNumber, int maxNumber) {
-        super.addRequirement("range", new NumberRangeRequirement(minNumber, maxNumber));
+        addRequirement("range", num -> num != null && num >= minNumber && num <= maxNumber);
         return this;
-    }
-
-    @Override
-    public Integer convertType(Object value) {
-        return (Integer) value;
     }
 }

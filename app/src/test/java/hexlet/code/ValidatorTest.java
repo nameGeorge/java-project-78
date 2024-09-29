@@ -175,7 +175,7 @@ public class ValidatorTest {
         schema.required();
         assertFalse(schema.isValid(null));
         assertTrue(schema.isValid(new HashMap<>()));
-        var data = new HashMap<String, Object>();
+        var data = new HashMap<String, String>();
         data.put("key1", "value1");
         assertTrue(schema.isValid(data));
     }
@@ -186,7 +186,7 @@ public class ValidatorTest {
         var validator = new Validator();
         var schema = validator.map();
         schema.sizeof(2);
-        var data = new HashMap<String, Object>();
+        var data = new HashMap<String, String>();
         data.put("key1", "value1");
         assertFalse(schema.isValid(data));
         data.put("key2", "value2");
@@ -203,7 +203,7 @@ public class ValidatorTest {
         schema.required();
         assertFalse(schema.isValid(null));
         assertTrue(schema.isValid(new HashMap<>()));
-        var data = new HashMap<String, Object>();
+        var data = new HashMap<String, String>();
         data.put("key1", "value1");
         assertTrue(schema.isValid(data));
         schema.sizeof(2);
@@ -214,82 +214,7 @@ public class ValidatorTest {
 
     @Test
     @DisplayName("validate a shape with all requirements")
-    void testValidateShapeWithoutRequirements() throws Exception {
-        var validator = new Validator();
-        var schema = validator.map();
-        Map<String, Object> schemas = new HashMap<>();
-        schemas.put("firstName", validator.string().required());
-        schemas.put("lastName", validator.string().required().minLength(2));
-        schemas.put("age", validator.number().required().positive());
-        schemas.put("phoneNumbers", validator.map().required().sizeof(2));
-        schema.shapeSeveralSchemes(schemas);
-        Map<String, Object> human1 = new HashMap<>();
-        human1.put("firstName", "John");
-        human1.put("lastName", "Smith");
-        human1.put("age", 14);
-        human1.put("phoneNumbers", Map.of(
-                "homeNumber", "8(111)222-33-44",
-                "mobileNumber", "8(555)666-77-88"));
-        human1.put("description", "good guy");
-        assertTrue(schema.isValid(human1));
-        Map<String, Object> human2 = new HashMap<>();
-        human2.put("firstName", "John");
-        human2.put("lastName", null);
-        human2.put("age", 14);
-        human2.put("phoneNumbers", Map.of(
-                "homeNumber", "8(111)222-33-44",
-                "mobileNumber", "8(555)666-77-88"));
-        assertFalse(schema.isValid(human2));
-        Map<String, Object> human3 = new HashMap<>();
-        human3.put("firstName", "Anna");
-        human3.put("lastName", "B");
-        human3.put("age", 14);
-        human3.put("phoneNumbers", Map.of(
-                "homeNumber", "8(111)222-33-44",
-                "mobileNumber", "8(555)666-77-88"));
-        assertFalse(schema.isValid(human3));
-        Map<String, Object> human4 = new HashMap<>();
-        human4.put("firstName", "John");
-        human4.put("lastName", "Smith");
-        human4.put("age", null);
-        human4.put("phoneNumbers", Map.of(
-                "homeNumber", "8(111)222-33-44",
-                "mobileNumber", "8(555)666-77-88"));
-        assertFalse(schema.isValid(human4));
-        Map<String, Object> human5 = new HashMap<>();
-        human5.put("firstName", "John");
-        human5.put("lastName", "Smith");
-        human5.put("age", 0);
-        human5.put("phoneNumbers", Map.of(
-                "homeNumber", "8(111)222-33-44",
-                "mobileNumber", "8(555)666-77-88"));
-        assertFalse(schema.isValid(human5));
-        Map<String, Object> human6 = new HashMap<>();
-        human6.put("firstName", "John");
-        human6.put("lastName", "Smith");
-        human6.put("age", -14);
-        human6.put("phoneNumbers", Map.of(
-                "homeNumber", "8(111)222-33-44",
-                "mobileNumber", "8(555)666-77-88"));
-        assertFalse(schema.isValid(human6));
-        Map<String, Object> human7 = new HashMap<>();
-        human7.put("firstName", "John");
-        human7.put("lastName", "Smith");
-        human7.put("age", 14);
-        human7.put("phoneNumbers", null);
-        assertFalse(schema.isValid(human7));
-        Map<String, Object> human8 = new HashMap<>();
-        human8.put("firstName", "John");
-        human8.put("lastName", "Smith");
-        human8.put("age", 14);
-        human8.put("phoneNumbers", Map.of(
-                "homeNumber", "8(111)222-33-44"));
-        assertFalse(schema.isValid(human8));
-    }
-
-    @Test
-    @DisplayName("validate a shape with all requirements (only string schema)")
-    void testValidateShapeWithoutRequirementsOnlyStringSchema() throws Exception {
+    void testValidateShapeWithAllRequirements() throws Exception {
         var validator = new Validator();
         var schema = validator.map();
         Map<String, BaseSchema<String>> schemas = new HashMap<>();
@@ -299,6 +224,7 @@ public class ValidatorTest {
         Map<String, String> human1 = new HashMap<>();
         human1.put("firstName", "John");
         human1.put("lastName", "Smith");
+        human1.put("phoneNumber", "+7(111)333-44-55");
         assertTrue(schema.isValid(human1));
         Map<String, String> human2 = new HashMap<>();
         human2.put("firstName", "John");
