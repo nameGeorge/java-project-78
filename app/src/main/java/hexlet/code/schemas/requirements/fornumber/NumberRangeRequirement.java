@@ -1,4 +1,6 @@
-package hexlet.code.schemas.requirements;
+package hexlet.code.schemas.requirements.fornumber;
+
+import hexlet.code.schemas.requirements.Requirement;
 
 public class NumberRangeRequirement implements Requirement<Integer> {
     private final int minNumber;

@@ -1,4 +1,6 @@
-package hexlet.code.schemas.requirements;
+package hexlet.code.schemas.requirements.forstring;
+
+import hexlet.code.schemas.requirements.Requirement;
 
 public class StringContainsRequirement implements Requirement<String> {
     private final String substring;

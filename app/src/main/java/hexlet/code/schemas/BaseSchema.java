@@ -5,19 +5,22 @@ import hexlet.code.schemas.requirements.Requirement;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BaseSchema<T> {
+public abstract class BaseSchema<T> {
     private Map<String, Requirement<T>> requirements;
 
     public BaseSchema() {
-        requirements = new HashMap<String, Requirement<T>>();
+        requirements = new HashMap<>();
     }
 
     public void addRequirement(String name, Requirement<T> requirement) {
         requirements.put(name, requirement);
     }
 
-    public boolean isValid(T dataForValidation) {
+    public boolean isValid(Object dataForValidation) {
+
         return requirements.values().stream()
-                .allMatch(requirement -> requirement.check(dataForValidation));
+                .allMatch(requirement -> requirement.check(convertType(dataForValidation)));
     }
+
+    public abstract T convertType(Object value);
 }
