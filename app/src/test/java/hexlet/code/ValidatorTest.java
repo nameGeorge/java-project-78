@@ -1,4 +1,5 @@
 package hexlet.code;
+
 import hexlet.code.schemas.BaseSchema;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -283,8 +284,9 @@ public class ValidatorTest {
         human8.put("age", 14);
         human8.put("phoneNumbers", Map.of(
                 "homeNumber", "8(111)222-33-44"));
-        assertFalse(schema.isValid(human7));
+        assertFalse(schema.isValid(human8));
     }
+
     @Test
     @DisplayName("validate a shape with all requirements (only string schema)")
     void testValidateShapeWithoutRequirementsOnlyStringSchema() throws Exception {

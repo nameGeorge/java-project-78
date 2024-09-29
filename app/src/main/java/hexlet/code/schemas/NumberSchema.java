@@ -4,7 +4,7 @@ import hexlet.code.schemas.requirements.fornumber.NumberPositiveRequirement;
 import hexlet.code.schemas.requirements.fornumber.NumberRangeRequirement;
 import hexlet.code.schemas.requirements.fornumber.NumberRequiredRequirement;
 
-public class NumberSchema extends BaseSchema<Integer> {
+public final class NumberSchema extends BaseSchema<Integer> {
     public NumberSchema required() {
         super.addRequirement("required", new NumberRequiredRequirement());
         return this;

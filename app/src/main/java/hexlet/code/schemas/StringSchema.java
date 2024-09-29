@@ -4,7 +4,7 @@ import hexlet.code.schemas.requirements.forstring.StringContainsRequirement;
 import hexlet.code.schemas.requirements.forstring.StringMinLengthRequirement;
 import hexlet.code.schemas.requirements.forstring.StringRequiredRequirement;
 
-public class StringSchema extends BaseSchema<String> {
+public final class StringSchema extends BaseSchema<String> {
     public StringSchema required() {
         super.addRequirement("required", new StringRequiredRequirement());
         return this;

@@ -2,7 +2,7 @@ package hexlet.code.schemas.requirements.fornumber;
 
 import hexlet.code.schemas.requirements.Requirement;
 
-public class NumberRequiredRequirement implements Requirement<Integer> {
+public final class NumberRequiredRequirement implements Requirement<Integer> {
     @Override
     public boolean check(Integer dataForCheck) {
         return dataForCheck != null;

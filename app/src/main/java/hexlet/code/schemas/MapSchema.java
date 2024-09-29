@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class MapSchema extends BaseSchema<Map<String, Object>> {
+public final class MapSchema extends BaseSchema<Map<String, Object>> {
     public MapSchema required() {
         super.addRequirement("required", new MapRequiredRequirement());
         return this;

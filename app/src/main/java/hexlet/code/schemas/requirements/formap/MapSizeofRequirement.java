@@ -4,11 +4,11 @@ import hexlet.code.schemas.requirements.Requirement;
 
 import java.util.Map;
 
-public class MapSizeofRequirement implements Requirement<Map<String, Object>> {
-    public final int size;
+public final class MapSizeofRequirement implements Requirement<Map<String, Object>> {
+    private final int size;
 
-    public MapSizeofRequirement(int size) {
-        this.size = size;
+    public MapSizeofRequirement(int sizeForMap) {
+        this.size = sizeForMap;
     }
 
     @Override

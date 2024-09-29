@@ -2,11 +2,11 @@ package hexlet.code.schemas.requirements.forstring;
 
 import hexlet.code.schemas.requirements.Requirement;
 
-public class StringContainsRequirement implements Requirement<String> {
+public final class StringContainsRequirement implements Requirement<String> {
     private final String substring;
 
-    public StringContainsRequirement(String substring) {
-        this.substring = substring;
+    public StringContainsRequirement(String requiredSubstring) {
+        this.substring = requiredSubstring;
     }
 
     @Override
