@@ -1,12 +1,9 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 plugins {
-    application
+    id("java")
     checkstyle
     jacoco
-}
-application {
-    mainClass = "hexlet.code.App"
 }
 group = "hexlet.code"
 version = "1.0-SNAPSHOT"
